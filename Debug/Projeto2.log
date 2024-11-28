@@ -1,0 +1,23 @@
+﻿  main.cpp
+C:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,9): warning C4005: 'APIENTRY': macro redefinition
+  (compiling source file 'main.cpp')
+      C:\OPENGL\glfw-3.4.bin.WIN32\include\GLFW\glfw3.h(123,11):
+      see previous definition of 'APIENTRY'
+  
+C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(227,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(241,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(256,26): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(260,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(267,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(274,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(290,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(297,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(305,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(325,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(331,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(337,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(377,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(441,27): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(498,35): warning C4018: '<': signed/unsigned mismatch
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+  Projeto2.vcxproj -> C:\Users\Sal\source\repos\Projeto2\Debug\Projeto2.exe
