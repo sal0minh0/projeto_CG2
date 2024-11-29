@@ -4,5 +4,11 @@ C:\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,9): warning C4005
       C:\OPENGL\glfw-3.4.bin.WIN64\glfw-3.4.bin.WIN64\include\GLFW\glfw3.h(123,11):
       see previous definition of 'APIENTRY'
   
+C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(180,11): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(181,11): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(184,34): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(185,34): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(186,34): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(187,34): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
   Projeto2.vcxproj -> C:\Users\Sal\source\repos\Projeto2\x64\Debug\Projeto2.exe

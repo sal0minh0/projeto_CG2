@@ -21,7 +21,7 @@ struct Triangulo {
     Pontos v1, v2, v3;
 };
 
-bool aux = false, pintar = false, lightOn = false, aux2 = true;
+bool aux = false, pintar = false, lightOn = false, aux2 = true, mostrarPontos = true;
 int cont = 0;
 vector<Pontos> inicial;
 
@@ -114,15 +114,16 @@ static void teclado(GLFWwindow* window, int key, int scancode, int action, int m
     if ((key == GLFW_KEY_ESCAPE || key == GLFW_KEY_Q) && action == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, GLFW_TRUE);
     }
-    if (key == GLFW_KEY_SPACE && action == GLFW_PRESS) {
-        aux = true;
-    }
     if (key == GLFW_KEY_P && action == GLFW_PRESS) {
-        pintar = !pintar;
+        aux = true;
+        mostrarPontos = !mostrarPontos;
     }
-    if (key == GLFW_KEY_Z && action == GLFW_PRESS) {
-        aux2 = !aux2;
-    }
+    //if (key == GLFW_KEY_P && action == GLFW_PRESS) {
+        //pintar = false; 
+    //}
+    //if (key == GLFW_KEY_Z && action == GLFW_PRESS) {
+        //aux2 = !aux2;
+    //}
 }
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
@@ -130,39 +131,31 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 }
 
 void desenho(const vector<Triangulo>& triangulos) {
-    if (pintar) {
-        glColor3f(0.0f, 1.0f, 1.0f); // Cor azul ciano para preenchimento
-        glBegin(GL_TRIANGLES);
-        for (const auto& tri : triangulos) {
-            glVertex3f(tri.v1.x, tri.v1.y, tri.v1.z);
-            glVertex3f(tri.v2.x, tri.v2.y, tri.v2.z);
-            glVertex3f(tri.v3.x, tri.v3.y, tri.v3.z);
-        }
-        glEnd();
+    glColor3f(1.0f, 1.0f, 1.0f); // Cor branca para modo wireframe
+    glBegin(GL_LINE_LOOP);
+    for (const auto& tri : triangulos) {
+        glVertex3f(tri.v1.x, tri.v1.y, tri.v1.z);
+        glVertex3f(tri.v2.x, tri.v2.y, tri.v2.z);
+        glVertex3f(tri.v3.x, tri.v3.y, tri.v3.z);
+    }
+    glEnd();
+}
 
-        glColor3f(0.0f, 0.0f, 0.0f); // Cor preta para contorno
+void desenho2(vector<Triangulo> triangulos2) {
+    glColor3f(1.0f, 0.0f, 0.0f); // Cor vermelha para modo wireframe
+    for (auto& tri : triangulos2) {
         glBegin(GL_LINE_LOOP);
-        for (const auto& tri : triangulos) {
-            glVertex3f(tri.v1.x, tri.v1.y, tri.v1.z);
-            glVertex3f(tri.v2.x, tri.v2.y, tri.v2.z);
-            glVertex3f(tri.v3.x, tri.v3.y, tri.v3.z);
-        }
+        glVertex3f(tri.v1.x, tri.v1.y, tri.v1.z);
+        glVertex3f(tri.v2.x, tri.v2.y, tri.v2.z);
+        glVertex3f(tri.v3.x, tri.v3.y, tri.v3.z);
         glEnd();
     }
-    else {
-        glColor3f(1.0f, 1.0f, 1.0f); // Cor branca para modo wireframe
-        glBegin(GL_LINE_LOOP);
-        for (const auto& tri : triangulos) {
-            glVertex3f(tri.v1.x, tri.v1.y, tri.v1.z);
-            glVertex3f(tri.v2.x, tri.v2.y, tri.v2.z);
-            glVertex3f(tri.v3.x, tri.v3.y, tri.v3.z);
-        }
-        glEnd();
-    }
+    glFlush();
 }
 
 // Função para desenhar pontos nos vértices dos quadriláteros
 void desenharPontos(const vector<Triangulo>& triangulos) {
+    if (!mostrarPontos) return; // Não desenha os pontos se mostrarPontos for false
     glPointSize(5.0f); // Ajusta o tamanho dos pontos
     glColor3f(1.0f, 1.0f, 0.0f); // Cor amarela para os pontos
 
@@ -173,39 +166,6 @@ void desenharPontos(const vector<Triangulo>& triangulos) {
         glVertex3f(tri.v3.x, tri.v3.y, tri.v3.z);
     }
     glEnd();
-}
-
-// Função para desenhar triângulos transformados
-void desenho2(vector<Triangulo> triangulos2) {
-    glColor3f(1.0f, 0.0f, 1.0f); // Cor magenta para objeto transformado
-    if (pintar) {
-        for (auto& tri : triangulos2) {
-            glBegin(GL_TRIANGLES);
-            glVertex3f(tri.v1.x, tri.v1.y, tri.v1.z);
-            glVertex3f(tri.v2.x, tri.v2.y, tri.v2.z);
-            glVertex3f(tri.v3.x, tri.v3.y, tri.v3.z);
-            glEnd();
-        }
-        glColor3f(0.0f, 0.0f, 0.0f); // Contorno preto
-        for (auto& tri : triangulos2) {
-            glBegin(GL_LINE_LOOP);
-            glVertex3f(tri.v1.x, tri.v1.y, tri.v1.z);
-            glVertex3f(tri.v2.x, tri.v2.y, tri.v2.z);
-            glVertex3f(tri.v3.x, tri.v3.y, tri.v3.z);
-            glEnd();
-        }
-    }
-    else {
-        glColor3f(1.0f, 0.0f, 0.0f); // Cor vermelha para modo wireframe
-        for (auto& tri : triangulos2) {
-            glBegin(GL_LINE_LOOP);
-            glVertex3f(tri.v1.x, tri.v1.y, tri.v1.z);
-            glVertex3f(tri.v2.x, tri.v2.y, tri.v2.z);
-            glVertex3f(tri.v3.x, tri.v3.y, tri.v3.z);
-            glEnd();
-        }
-    }
-    glFlush();
 }
 
 // Função para aplicar transformações geométricas
@@ -415,5 +375,6 @@ int main() {
 
     // Limpeza e encerramento
     glfwTerminate();
+
     return 0;
 }
