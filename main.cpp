@@ -267,7 +267,7 @@ int main() {
 
     if (!glfwInit()) return -1;
 
-    GLFWwindow* window = glfwCreateWindow(700, 500, "Transformações com .obj", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(700, 500, "Transformacoes com .obj", NULL, NULL);
     if (!window) {
         glfwTerminate();
         return -1;
