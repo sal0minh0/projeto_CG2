@@ -1,9 +1,12 @@
+Ôªø#include <windows.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <GL/glut.h>
 #include <vector>
 #include <fstream>
 #include <string>
+#include <cmath>
+
 using namespace std;
 
 struct Pontos {
@@ -11,18 +14,19 @@ struct Pontos {
 };
 
 struct Transformar {
-    int type;   // Tipo de transformaÁ„o
+    int type;   // Tipo de transforma√ß√£o
     float x, y, z;
 };
 
-// Vetores para armazenar vÈrtices e transformaÁıes
+// Vetores para armazenar v√©rtices e transforma√ß√µes
 vector<Pontos> controlPoints;
 vector<Transformar> transformar;
 
-// Controle da exibiÁ„o
+// Controle da exibi√ß√£o
 bool mostrarPontos = false;
+int transformIndex = 0; // √çndice da transforma√ß√£o atual
 
-// FunÁ„o para carregar o arquivo .obj
+// Fun√ß√£o para carregar o arquivo .obj
 bool loadObj(const string& filename, vector<Pontos>& controlPoints, vector<Transformar>& transformar) {
     ifstream file(filename);
     if (!file.is_open()) {
@@ -32,57 +36,39 @@ bool loadObj(const string& filename, vector<Pontos>& controlPoints, vector<Trans
 
     string line;
     while (getline(file, line)) {
-        if (line.substr(0, 2) == "v ") {  // LÍ vÈrtices
+        if (line.substr(0, 2) == "v ") {  // L√™ v√©rtices
             Pontos ponto;
             sscanf_s(line.c_str(), "v %f %f %f", &ponto.x, &ponto.y, &ponto.z);
             controlPoints.push_back(ponto);
         }
-        else if (line.substr(0, 2) == "s ") {  // LÍ escala
+        else if (line.substr(0, 2) == "s ") {  // L√™ escala
             Transformar t;
             sscanf_s(line.c_str(), "s %f %f %f", &t.x, &t.y, &t.z);
             t.type = 1;
             transformar.push_back(t);
         }
-        else if (line.substr(0, 2) == "t ") {  // LÍ translaÁ„o
+        else if (line.substr(0, 2) == "t ") {  // L√™ transla√ß√£o
             Transformar t;
             sscanf_s(line.c_str(), "t %f %f %f", &t.x, &t.y, &t.z);
             t.type = 2;
             transformar.push_back(t);
         }
-        else if (line.substr(0, 2) == "x ") {  // LÍ rotaÁ„o em X
+        else if (line.substr(0, 2) == "r ") {  // L√™ rota√ß√µes
             Transformar t;
-            sscanf_s(line.c_str(), "x %f", &t.x);
-            t.y = 0;
-            t.z = 0;
+            sscanf_s(line.c_str(), "r %f %f %f", &t.x, &t.y, &t.z);
             t.type = 3;
             transformar.push_back(t);
         }
-        else if (line.substr(0, 2) == "y ") {  // LÍ rotaÁ„o em Y
+        else if (line.substr(0, 2) == "c ") {  // L√™ cisalhamento
             Transformar t;
-            sscanf_s(line.c_str(), "y %f", &t.x);
-            t.y = 0;
-            t.z = 0;
+            sscanf_s(line.c_str(), "c %f %f %f", &t.x, &t.y, &t.z);
             t.type = 4;
             transformar.push_back(t);
         }
-        else if (line.substr(0, 2) == "z ") {  // LÍ rotaÁ„o em Z
-            Transformar t;
-            sscanf_s(line.c_str(), "z %f", &t.x);
-            t.y = 0;
-            t.z = 0;
-            t.type = 5;
-            transformar.push_back(t);
-        }
-        else if (line.substr(0, 2) == "c ") {  // LÍ cisalhamento
-            Transformar t;
-            sscanf_s(line.c_str(), "c %f %f %f", &t.x, &t.y, &t.z);
-            t.type = 6;
-            transformar.push_back(t);
-        }
-        else if (line.substr(0, 2) == "e ") {  // LÍ reflex„o
+        else if (line.substr(0, 2) == "e ") {  // L√™ reflex√£o
             Transformar t;
             sscanf_s(line.c_str(), "e %f %f %f", &t.x, &t.y, &t.z);
-            t.type = 7;
+            t.type = 5;
             transformar.push_back(t);
         }
     }
@@ -91,7 +77,8 @@ bool loadObj(const string& filename, vector<Pontos>& controlPoints, vector<Trans
     return true;
 }
 
-// FunÁ„o para calcular os coeficientes de BÈzier
+
+// Fun√ß√£o para calcular os coeficientes de B√©zier
 Pontos calculaSuperficieBezier(const vector<vector<Pontos>>& controlPoints, float u, float v) {
     int n = controlPoints.size() - 1;
     int m = controlPoints[0].size() - 1;
@@ -111,10 +98,10 @@ Pontos calculaSuperficieBezier(const vector<vector<Pontos>>& controlPoints, floa
     return point;
 }
 
-// FunÁ„o para desenhar a superfÌcie de BÈzier
+// Fun√ß√£o para desenhar a superf√≠cie de B√©zier
 void desenharSuperficieBezier(const vector<vector<Pontos>>& controlPoints) {
     int resolution = 100;
-    glColor3f(0.0f, 1.0f, 0.5f);
+    glColor3f(2.0f, 0.5f, 1.0f);
     glBegin(GL_TRIANGLES);
 
     for (int i = 0; i < resolution; ++i) {
@@ -143,7 +130,7 @@ void desenharSuperficieBezier(const vector<vector<Pontos>>& controlPoints) {
     glEnd();
 }
 
-// FunÁ„o para desenhar pontos de controle e as linhas conectando-os
+// Fun√ß√£o para desenhar pontos de controle e as linhas conectando-os
 void desenharPontosEConexoes(const vector<vector<Pontos>>& controlPoints) {
     glColor3f(1.0f, 1.0f, 0.0f);  // Amarelo para os pontos
     glPointSize(8.0f);
@@ -173,40 +160,38 @@ void desenharPontosEConexoes(const vector<vector<Pontos>>& controlPoints) {
     glEnd();
 }
 
-
-
-// FunÁ„o para aplicar transformaÁıes geomÈtricas
 void applyTransformation(const Transformar& transform) {
-    glPushMatrix();
-
     switch (transform.type) {
     case 1: // Escala
         glScalef(transform.x, transform.y, transform.z);
         break;
-    case 2: // TranslaÁ„o
+    case 2: // Transla√ß√£o
         glTranslatef(transform.x, transform.y, transform.z);
         break;
-    case 3: // RotaÁ„o em X
+    case 3: // Rota√ß√£o
         glRotatef(transform.x, 1.0f, 0.0f, 0.0f);
+        glRotatef(transform.y, 0.0f, 1.0f, 0.0f);
+        glRotatef(transform.z, 0.0f, 0.0f, 1.0f);
         break;
-    case 4: // RotaÁ„o em Y
-        glRotatef(transform.x, 0.0f, 1.0f, 0.0f);
-        break;
-    case 5: // RotaÁ„o em Z
-        glRotatef(transform.x, 0.0f, 0.0f, 1.0f);
-        break;
-    case 6: // Cisalhamento
+    case 4: // Cisalhamento
     {
-        GLfloat shearMatrix[16] = {
-            1.0f, transform.y, transform.z, 0.0f,
-            transform.x, 1.0f, transform.z, 0.0f,
-            transform.x, transform.y, 1.0f, 0.0f,
-            0.0f, 0.0f, 0.0f, 1.0f
-        };
+        GLfloat shearMatrix[16] = { 1.0f, 0.0f, 0.0f, 0.0f,
+                                   0.0f, 1.0f, 0.0f, 0.0f,
+                                   0.0f, 0.0f, 1.0f, 0.0f,
+                                   0.0f, 0.0f, 0.0f, 1.0f };
+        if (transform.x != 0) {
+            shearMatrix[4] = transform.x; // Cisalhamento no eixo X
+        }
+        if (transform.y != 0) {
+            shearMatrix[1] = transform.y; // Cisalhamento no eixo Y
+        }
+        if (transform.z != 0) {
+            shearMatrix[8] = transform.z; // Cisalhamento no eixo Z
+        }
         glMultMatrixf(shearMatrix);
     }
     break;
-    case 7: // Reflex„o
+    case 5: // Reflex√£o
     {
         GLfloat mirrorMatrix[16] = {
             transform.x == 0 ? -1.0f : 1.0f, 0.0f, 0.0f, 0.0f,
@@ -218,8 +203,6 @@ void applyTransformation(const Transformar& transform) {
     }
     break;
     }
-
-    glPopMatrix();
 }
 
 // Callback para ajustar o viewport e a perspectiva
@@ -231,10 +214,14 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
     gluPerspective(60.0f, aspectRatio, 1.0f, 100.0f);
 }
 
-// Callback de teclado
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
     if (key == GLFW_KEY_P && action == GLFW_PRESS) {
         mostrarPontos = !mostrarPontos;
+    }
+    if (key == GLFW_KEY_SPACE && action == GLFW_PRESS) {
+        if (++transformIndex > transformar.size()) {
+            transformIndex = 0;
+        }
     }
     if ((key == GLFW_KEY_Q || key == GLFW_KEY_ESCAPE) && action == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, true);
@@ -243,16 +230,16 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 int main() {
     // Carregar arquivo .obj
-    string caminho = "C:\\Users\\Sal\\source\\repos\\Projeto2\\Projeto2\\flor.obj"; // Substituir pelo caminho real
+    string caminho = "C:\\Users\\Sal\\source\\repos\\Projeto2\\Projeto2\\sbezier.obj"; // Substituir pelo caminho real
     if (!loadObj(caminho, controlPoints, transformar)) {
         return -1;
     }
 
     // Preparar os pontos de controle em uma estrutura bidimensional
-    // Supondo que seja necess·rio definir manualmente a estrutura (exemplo: uma grade 4x4)
+    // Supondo que seja necess√°rio definir manualmente a estrutura (exemplo: uma grade 4x4)
     vector<vector<Pontos>> controlPoints2D;
-    int rows = 4; // N˙mero de linhas
-    int cols = 4; // N˙mero de colunas
+    int rows = 4; // N√∫mero de linhas
+    int cols = 4; // N√∫mero de colunas
     if (controlPoints.size() < rows * cols) {
         cerr << "Pontos insuficientes para formar uma grade " << rows << "x" << cols << ".\n";
         return -1;
@@ -287,12 +274,14 @@ int main() {
         glRotatef(35.264f, 1.0f, 0.0f, 0.0f);
         glRotatef(-45.0f, 0.0f, 1.0f, 0.0f);
 
-        // Aplicar transformaÁıes carregadas
-        for (const auto& transform : transformar) {
-            applyTransformation(transform);
+        glPushMatrix();
+
+        // Aplicar transforma√ß√µes cumulativas at√© o √≠ndice atual
+        for (int i = 0; i < transformIndex; ++i) {
+            applyTransformation(transformar[i]);
         }
 
-        // Desenhar os pontos e conexıes, e a superfÌcie de BÈzier
+        // Desenhar os pontos e conex√µes, e a superf√≠cie de B√©zier
         if (mostrarPontos) {
             desenharPontosEConexoes(controlPoints2D);
         }
@@ -316,6 +305,8 @@ int main() {
         glVertex3f(0.0f, 0.0f, 0.0f);
         glVertex3f(0.0f, 0.0f, 320.0f);
         glEnd();
+
+        glPopMatrix();
 
         glfwSwapBuffers(window);
         glfwPollEvents();
