@@ -101,7 +101,7 @@ Pontos calculaSuperficieBezier(const vector<vector<Pontos>>& controlPoints, floa
 // Função para desenhar a superfície de Bézier
 void desenharSuperficieBezier(const vector<vector<Pontos>>& controlPoints) {
     int resolution = 100;
-    glColor3f(2.0f, 0.5f, 1.0f);
+    glColor3f(0.0f, 1.0f, 0.5f);
     glBegin(GL_TRIANGLES);
 
     for (int i = 0; i < resolution; ++i) {
