@@ -270,42 +270,45 @@ int main() {
 
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
-        glTranslatef(0.0f, 0.0f, -50.0f);
-        glRotatef(35.264f, 1.0f, 0.0f, 0.0f);
-        glRotatef(-45.0f, 0.0f, 1.0f, 0.0f);
 
-        glPushMatrix();
+        // Set up the camera transformation
+        gluLookAt(50.0, 50.0, 50.0,  // Camera position
+            0.0, 0.0, 0.0,   // Look at point
+            0.0, 1.0, 0.0);  // Up vector
 
-        // Aplicar transformações cumulativas até o índice atual
-        for (int i = 0; i < transformIndex; ++i) {
-            applyTransformation(transformar[i]);
-        }
-
-        // Desenhar os pontos e conexões, e a superfície de Bézier
-        if (mostrarPontos) {
-            desenharPontosEConexoes(controlPoints2D);
-        }
-        desenharSuperficieBezier(controlPoints2D);
-
-        // Desenho dos eixos de coordenadas
+        // Draw the coordinate axes
         glBegin(GL_LINES);
-        glColor3f(0.0f, 1.0f, 0.0f);  // Eixo X em verde
+        // X axis in green
+        glColor3f(0.0f, 1.0f, 0.0f);
         glVertex3f(0, 0.0f, 0.0f);
         glVertex3f(320, 0.0f, 0.0f);
         glEnd();
 
-        glColor3f(0.0f, 0.0f, 1.0f);  // Eixo Y em azul
+        // Y axis in blue
+        glColor3f(0.0f, 0.0f, 1.0f);
         glBegin(GL_LINES);
         glVertex3f(0.0f, 0, 0.0f);
         glVertex3f(0.0f, 240, 0.0f);
         glEnd();
 
-        glColor3f(1.0f, 0.0f, 0.0f);  // Eixo Z em vermelho
+        // Z axis in red
+        glColor3f(1.0f, 0.0f, 0.0f);
         glBegin(GL_LINES);
         glVertex3f(0.0f, 0.0f, 0.0f);
         glVertex3f(0.0f, 0.0f, 320.0f);
         glEnd();
 
+        // Apply object transformations and draw objects
+        glPushMatrix();
+        for (int i = 0; i < transformIndex; ++i) {
+            applyTransformation(transformar[i]);
+        }
+
+        // Draw the control points and connections, and the Bézier surface
+        if (mostrarPontos) {
+            desenharPontosEConexoes(controlPoints2D);
+        }
+        desenharSuperficieBezier(controlPoints2D);
         glPopMatrix();
 
         glfwSwapBuffers(window);
