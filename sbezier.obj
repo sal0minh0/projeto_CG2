@@ -22,6 +22,10 @@ v 9.375 0.0 6.25
 v 9.375 0.0 9.375
 
 # Transformações
+
+# Translação aleatória para fora da origem para demonstrar legal, que sai da origem
+t 10.0 15.0 20.0
+
 # Escala: dobra o tamanho nos eixos X e Y
 s 2.0 2.0 1.0
 

@@ -77,7 +77,6 @@ bool loadObj(const string& filename, vector<Pontos>& controlPoints, vector<Trans
     return true;
 }
 
-
 // Função para calcular os coeficientes de Bézier
 Pontos calculaSuperficieBezier(const vector<vector<Pontos>>& controlPoints, float u, float v) {
     int n = controlPoints.size() - 1;
@@ -271,40 +270,40 @@ int main() {
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
 
-        // Set up the camera transformation
-        gluLookAt(50.0, 50.0, 50.0,  // Camera position
-            0.0, 0.0, 0.0,   // Look at point
-            0.0, 1.0, 0.0);  // Up vector
+        // Configurar a transformação da câmera
+        gluLookAt(50.0, 50.0, 50.0,  // Posição da câmera
+            0.0, 0.0, 0.0,   // Ponto de referência
+            0.0, 1.0, 0.0);  // Vetor "para cima"
 
-        // Draw the coordinate axes
+        // Desenhar os eixos coordenados
         glBegin(GL_LINES);
-        // X axis in green
+        // Eixo X em verde
         glColor3f(0.0f, 1.0f, 0.0f);
         glVertex3f(0, 0.0f, 0.0f);
         glVertex3f(320, 0.0f, 0.0f);
         glEnd();
 
-        // Y axis in blue
+        // Eixo Y em azul
         glColor3f(0.0f, 0.0f, 1.0f);
         glBegin(GL_LINES);
         glVertex3f(0.0f, 0, 0.0f);
         glVertex3f(0.0f, 240, 0.0f);
         glEnd();
 
-        // Z axis in red
+        // Eixo Z em vermelho
         glColor3f(1.0f, 0.0f, 0.0f);
         glBegin(GL_LINES);
         glVertex3f(0.0f, 0.0f, 0.0f);
         glVertex3f(0.0f, 0.0f, 320.0f);
         glEnd();
 
-        // Apply object transformations and draw objects
+        // Aplicar transformações ao objeto e desenhar objetos
         glPushMatrix();
         for (int i = 0; i < transformIndex; ++i) {
             applyTransformation(transformar[i]);
         }
 
-        // Draw the control points and connections, and the Bézier surface
+        // Desenhar os pontos de controle e conexões, e a superfície de Bézier
         if (mostrarPontos) {
             desenharPontosEConexoes(controlPoints2D);
         }
