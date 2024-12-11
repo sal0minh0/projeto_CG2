@@ -1,7 +1,6 @@
 ﻿#include <windows.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
-#include <GL/glut.h>
 #include <vector>
 #include <fstream>
 #include <string>

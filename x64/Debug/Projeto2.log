@@ -1,8 +1,9 @@
 ﻿  main.cpp
-C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(83,11): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(84,11): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(81,11): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(82,11): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(87,34): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(88,34): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(89,34): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(90,34): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(91,34): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(92,34): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  Projeto2.vcxproj -> C:\Users\Sal\source\repos\Projeto2\x64\Debug\Projeto2.exe
+C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(212,5): error C3861: 'gluPerspective': identifier not found
+C:\Users\Sal\source\repos\Projeto2\Projeto2\main.cpp(273,9): error C3861: 'gluLookAt': identifier not found
