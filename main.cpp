@@ -1,5 +1,4 @@
-﻿#include <windows.h>
-#include <GLFW/glfw3.h>
+﻿#include <GLFW/glfw3.h>
 #include <iostream>
 #include <vector>
 #include <fstream>
