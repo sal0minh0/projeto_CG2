@@ -30,7 +30,7 @@
 
 1. Maximize a tela para visualizar a superfície 3D
 2. Aperte `"p"` e vc visualizará a malha polígonal 3D 
-3. Aperte `"Espaço"` continuamente e vc verá as transformações (Com a ordem Translação, Escala, Translação, Rotação, Cisalhamento, Reflexão)
+3. Aperte `"Espaço"` continuamente e vc verá as transformações (Com a ordem Translação, Escala, Translação, Rotação, Cisalhamento e Reflexão)
 4. Aperte `"Esc"` ou `"Q"` e vc sairá do programa 
 
 <div align="center">
