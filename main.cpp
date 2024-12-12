@@ -227,7 +227,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 int main() {
     // Carregar arquivo .obj
-    string caminho = "C:\\Users\\Sal\\source\\repos\\Projeto2\\Projeto2\\arquivo.obj"; // Substituir pelo caminho real
+    string caminho = "arquivo.obj"; // Substituir pelo caminho real
     if (!loadObj(caminho, controlPoints, transformar)) {
         return -1;
     }
