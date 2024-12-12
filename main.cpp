@@ -1,4 +1,6 @@
-﻿#include <GLFW/glfw3.h>
+﻿#include <windows.h> 
+#include <GLFW/glfw3.h>
+#include <GL/glu.h>
 #include <iostream>
 #include <vector>
 #include <fstream>
